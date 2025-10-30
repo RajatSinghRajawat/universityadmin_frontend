@@ -5,6 +5,7 @@ import { FaUser, FaMapMarkerAlt, FaBriefcase, FaIdCard, FaArrowLeft, FaEdit } fr
 const EmployessProfile = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   
   // Get employee data from navigation state
   const employee = location.state?.employee;
@@ -103,7 +104,7 @@ const EmployessProfile = () => {
             <div className="flex items-center space-x-4">
               {employee?.image ? (
                 <img 
-                  src={`http://localhost:5001/${employee.image}`} 
+                  src={`${backendUrl}/${employee.image}`} 
                   alt={profileData.name}
                   className="w-16 h-16 rounded-full object-cover border-2 border-white border-opacity-30"
                 />

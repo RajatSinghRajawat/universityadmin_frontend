@@ -6,6 +6,7 @@ import { studentService, authService, courseService } from '../../services';
 const AddStudent = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const isEditMode = location.pathname.includes('/edit');
   const studentData = location.state?.student;
 
@@ -115,7 +116,7 @@ const AddStudent = () => {
       console.log('Loading courses for university:', currentUniversityCode);
 
       // Use direct fetch for better error handling
-      const response = await fetch(`http://localhost:5001/api/courses/all?universityCode=${currentUniversityCode}&isActive=true`);
+      const response = await fetch(`${backendUrl}/api/courses/all?universityCode=${currentUniversityCode}&isActive=true`);
       const result = await response.json();
       
       if (result.success) {

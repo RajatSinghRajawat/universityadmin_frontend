@@ -8,6 +8,7 @@ const StudentProfile = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +30,7 @@ const StudentProfile = () => {
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/get/${id}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/get/${id}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -55,7 +56,7 @@ const StudentProfile = () => {
         return;
       }
       
-      const response = await fetch(`http://localhost:5001/api/courses/all?universityCode=${universityCode}&isActive=true`);
+      const response = await fetch(`${backendUrl}/api/courses/all?universityCode=${universityCode}&isActive=true`);
       const result = await response.json();
       
       if (result.success) {
@@ -94,7 +95,7 @@ const StudentProfile = () => {
         course_id: student.course_id?._id || '',
         image: null
       });
-      setImagePreview(student.image ? `http://localhost:5001/${student.image}` : null);
+      setImagePreview(student.image ? `${backendUrl}/${student.image}` : null);
       setShowEditModal(true);
     }
   };
@@ -176,7 +177,7 @@ const StudentProfile = () => {
         redirect: "follow"
       };
 
-      const response = await fetch(`http://localhost:5001/api/students/update/${id}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/update/${id}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -301,7 +302,7 @@ const StudentProfile = () => {
             <div className="w-16 h-16 rounded-full border-2 border-white border-opacity-30 overflow-hidden">
               {student.image ? (
                 <img 
-                  src={`http://localhost:5001/${student.image}`} 
+                  src={`${backendUrl}/${student.image}`} 
                   alt={student.name}
                   className="w-full h-full object-cover"
                 />

@@ -6,6 +6,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 const AddexcelStudent = () => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const fileInputRef = useRef(null);
   
   const [dragActive, setDragActive] = useState(false);
@@ -82,7 +83,7 @@ const AddexcelStudent = () => {
         redirect: 'follow'
       };
 
-      const response = await fetch('http://localhost:5001/api/students/upload-excel', requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/upload-excel`, requestOptions);
       
       // Check if response is ok
       if (!response.ok) {

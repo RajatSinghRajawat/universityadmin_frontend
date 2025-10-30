@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 
 const Missed = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [payments, setPayments] = useState([]);
@@ -55,7 +56,7 @@ const Missed = () => {
       });
 
       console.log('Fetching missed payments with params:', params.toString());
-      const response = await fetch(`http://localhost:5001/api/accounts/all?${params}`);
+      const response = await fetch(`${backendUrl}/api/accounts/all?${params}`);
       const result = await response.json();
       console.log('Missed payments API response:', result);
       
@@ -157,7 +158,7 @@ const Missed = () => {
           requestBody.universityCode = universityCode;
         }
         
-        const response = await fetch(`http://localhost:5001/api/accounts/mark-paid/${paymentId}`, {
+        const response = await fetch(`${backendUrl}/api/accounts/mark-paid/${paymentId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'

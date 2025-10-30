@@ -5,6 +5,7 @@ import { validateUniversityCode, getUniversityInfo } from '../../utils/universit
 
 const Received = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [payments, setPayments] = useState([]);
@@ -54,7 +55,7 @@ const Received = () => {
       });
 
       console.log('Fetching received payments with params:', params.toString());
-      const response = await fetch(`http://localhost:5001/api/accounts/all?${params}`);
+      const response = await fetch(`${backendUrl}/api/accounts/all?${params}`);
       const result = await response.json();
       console.log('Received payments API response:', result);
       

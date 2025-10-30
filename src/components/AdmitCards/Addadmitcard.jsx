@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 const Addadmitcard = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const universityCode = localStorage.getItem('universityCode');
   
   const [formData, setFormData] = useState({
@@ -39,7 +40,7 @@ const Addadmitcard = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/students/all?universityCode=${universityCode}`);
+      const response = await fetch(`${backendUrl}/api/students/all?universityCode=${universityCode}`);
       const result = await response.json();
       if (result.success) {
         setStudents(result.data || []);
@@ -53,7 +54,7 @@ const Addadmitcard = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/courses/all?universityCode=${universityCode}`);
+      const response = await fetch(`${backendUrl}/api/courses/all?universityCode=${universityCode}`);
       const result = await response.json();
       if (result.success) {
         setCourses(result.data || []);
@@ -191,7 +192,7 @@ const Addadmitcard = () => {
         universityCode: universityCode
       };
       
-      const response = await fetch('http://localhost:5001/api/admitcards/create', {
+      const response = await fetch(`${backendUrl}/api/admitcards/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

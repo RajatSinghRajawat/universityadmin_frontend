@@ -6,6 +6,7 @@ import { validateUniversityCode, getUniversityInfo } from '../../utils/universit
 
 const OptimizedAddPayment = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     student_id: '',
     amount: '',
@@ -45,7 +46,7 @@ const OptimizedAddPayment = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:5001/api/students/all?universityCode=${universityCode}`);
+      const response = await fetch(`${backendUrl}/api/students/all?universityCode=${universityCode}`);
       const result = await response.json();
       
       if (result.success) {
@@ -147,7 +148,7 @@ const OptimizedAddPayment = () => {
           emi_duedate: formData.start_date,
           universityCode: universityCode
         };
-        endpoint = 'http://localhost:5001/api/accounts/add-one-shot-payment';
+        endpoint = `${backendUrl}/api/accounts/add-one-shot-payment`;
       } else {
         paymentData = {
           student_id: formData.student_id,
@@ -158,7 +159,7 @@ const OptimizedAddPayment = () => {
           end_date: formData.end_date,
           universityCode: universityCode
         };
-        endpoint = 'http://localhost:5001/api/accounts/add-payment';
+        endpoint = `${backendUrl}/api/accounts/add-payment`;
       }
 
       const response = await fetch(endpoint, {

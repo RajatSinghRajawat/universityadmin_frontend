@@ -8,6 +8,7 @@ const AddPayment = () => {
   const { id } = useParams();
   console.log(id);
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     student_id: '',
     amount: '',
@@ -47,7 +48,7 @@ const AddPayment = () => {
         params.append('universityCode', universityCode);
       }
       
-      const response = await fetch(`http://localhost:5001/api/students/get?${params}`);
+      const response = await fetch(`${backendUrl}/api/students/get?${params}`);
       const result = await response.json();
       
       if (result.success) {
@@ -68,7 +69,7 @@ const AddPayment = () => {
   // Fetch single student if ID is provided in URL
   const fetchSingleStudent = async (studentId) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/students/get/${studentId}`);
+      const response = await fetch(`${backendUrl}/api/students/get/${studentId}`);
       const result = await response.json();
       
       if (result.success) {
@@ -321,7 +322,7 @@ const AddPayment = () => {
           emi_duedate: dueDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
           universityCode: universityCode
         };
-        endpoint = 'http://localhost:5001/api/accounts/add-one-shot-payment';
+        endpoint = `${backendUrl}/api/accounts/add-one-shot-payment`;
       } else {
         // For multiple EMI payments, we don't send emi_duedate as it will be calculated automatically
         paymentData = {
@@ -333,7 +334,7 @@ const AddPayment = () => {
           // Add manual joining date if provided
           ...(useManualDate && manualJoiningDate && { manualJoiningDate: manualJoiningDate })
         };
-        endpoint = 'http://localhost:5001/api/accounts/add-payment';
+        endpoint = `${backendUrl}/api/accounts/add-payment`;
       }
 
       console.log('Sending payment data:', paymentData);

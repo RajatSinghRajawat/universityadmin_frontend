@@ -14,7 +14,8 @@ const AllStudent = () => {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('');
   const [selectedBatch, setSelectedBatch] = useState('');
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+console.log(backendUrl);
   const toggleDropdown = (studentId) => {
     setDropdownOpen(dropdownOpen === studentId ? null : studentId);
   };
@@ -24,7 +25,7 @@ const universityCode = localStorage.getItem('universityCode');
   // Fetch courses for filter dropdown
   const getCourses = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/courses/get?universityCode=${universityCode}`);
+      const response = await fetch(`${backendUrl}/api/courses/get?universityCode=${universityCode}`);
       const result = await response.json();
       
       if (result.success) {
@@ -45,7 +46,7 @@ const universityCode = localStorage.getItem('universityCode');
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/all?universityCode=${universityCode}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/all?universityCode=${universityCode}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -67,7 +68,7 @@ const universityCode = localStorage.getItem('universityCode');
   const checkPaymentStatusForAllStudents = async (studentsList) => {
     const paymentStatusPromises = studentsList.map(async (student) => {
       try {
-        const response = await fetch(`http://localhost:5001/api/accounts/student/${student._id}?universityCode=${universityCode}`);
+        const response = await fetch(`${backendUrl}/api/accounts/student/${student._id}?universityCode=${universityCode}`);
         const result = await response.json();
         
         if (result.success && result.data) {
@@ -108,7 +109,7 @@ const universityCode = localStorage.getItem('universityCode');
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/search?query=${searchTerm}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/search?query=${searchTerm}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -129,7 +130,7 @@ const universityCode = localStorage.getItem('universityCode');
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/delete/${id}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/delete/${id}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -356,7 +357,7 @@ const universityCode = localStorage.getItem('universityCode');
                       {student.image ? (
                         <div className="w-10 h-10 rounded-full overflow-hidden border-2">
                           <img 
-                            src={`http://localhost:5001/${student.image}`} 
+                            src={`${backendUrl}/${student.image}`} 
                             alt={student.name}
                             className="w-full h-full object-cover"
                           />

@@ -11,11 +11,16 @@ class AdmitCardService {
 
     return apiService.post('/admitcards/create', admitCardData);
   }
+ 
 
   // Get all admit cards
   async getAllAdmitCards(params = {}) {
     return apiService.get('/admitcards', params);
   }
+
+
+
+
 
   // Get admit card by ID
   async getAdmitCardById(id) {

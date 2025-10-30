@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 const PaymentHistory = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const student = location.state?.student;
   const [activeTab, setActiveTab] = useState('All');
   const [paymentHistory, setPaymentHistory] = useState([]);
@@ -43,8 +44,8 @@ const PaymentHistory = () => {
 
       const studentId = studentData._id || studentData.id;
       const url = universityCode 
-        ? `http://localhost:5001/api/accounts/student/${studentId}?universityCode=${universityCode}`
-        : `http://localhost:5001/api/accounts/student/${studentId}`;
+        ? `${backendUrl}/api/accounts/student/${studentId}?universityCode=${universityCode}`
+        : `${backendUrl}/api/accounts/student/${studentId}`;
         
       console.log('Fetching payment history for:', { studentId, universityCode, url });
       const response = await fetch(url);
@@ -201,7 +202,7 @@ const PaymentHistory = () => {
           requestBody.universityCode = universityCode;
         }
         
-        const response = await fetch(`http://localhost:5001/api/accounts/mark-paid/${payment.id}`, {
+        const response = await fetch(`${backendUrl}/api/accounts/mark-paid/${payment.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'

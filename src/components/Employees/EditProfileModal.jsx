@@ -8,6 +8,7 @@ const EditProfileModal = () => {
   const { isDarkMode } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const employee = location.state?.employee;
 
   const [formData, setFormData] = useState({
@@ -444,7 +445,7 @@ const EditProfileModal = () => {
                 <div className="mt-2">
                   <p className="text-sm text-gray-600 mb-2">Current image:</p>
                   <img 
-                    src={`http://localhost:5001/${employee.image}`} 
+                    src={`${backendUrl}/${employee.image}`} 
                     alt="Current profile" 
                     className="w-16 h-16 rounded-full object-cover"
                   />

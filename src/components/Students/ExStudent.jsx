@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 const ExStudent = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [searchTerm, setSearchTerm] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [exStudents, setExStudents] = useState([]);
@@ -27,7 +28,7 @@ const ExStudent = () => {
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/ex-students?universityCode=${universityCode}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/ex-students?universityCode=${universityCode}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -55,7 +56,7 @@ const ExStudent = () => {
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/search?query=${searchTerm}&universityCode=${universityCode}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/search?query=${searchTerm}&universityCode=${universityCode}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -82,7 +83,7 @@ const ExStudent = () => {
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/reactivate/${id}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/reactivate/${id}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -122,7 +123,7 @@ const ExStudent = () => {
         redirect: "follow"
       };
       
-      const response = await fetch(`http://localhost:5001/api/students/delete/${id}`, requestOptions);
+      const response = await fetch(`${backendUrl}/api/students/delete/${id}`, requestOptions);
       const result = await response.json();
       
       if (result.success) {
@@ -307,7 +308,7 @@ const ExStudent = () => {
                       {student.image ? (
                         <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-red-200">
                           <img 
-                            src={`http://localhost:5001/${student.image}`} 
+                            src={`${backendUrl}/${student.image}`} 
                             alt={student.name}
                             className="w-full h-full object-cover grayscale"
                           />

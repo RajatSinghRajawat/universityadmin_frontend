@@ -1,5 +1,6 @@
 // Centralized API configuration and base service
-const API_BASE_URL = 'http://localhost:5001/api';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+const API_BASE_URL = `${backendUrl}/api`;
 
 class ApiService {
   constructor() {

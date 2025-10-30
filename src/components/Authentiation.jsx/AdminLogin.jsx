@@ -6,6 +6,7 @@ import { ThemeContext } from '../../contexts/ThemeContext';
 const AdminLogin = () => {
   const navigate = useNavigate();
   const { isDarkMode } = useContext(ThemeContext);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -38,7 +39,7 @@ const AdminLogin = () => {
       };
 
       console.log('Attempting login...');
-      const response = await fetch("http://localhost:5001/api/auth/login", requestOptions);
+      const response = await fetch(`${backendUrl}/api/auth/login`, requestOptions);
       const result = await response.json();
 
       console.log('Login response:', { ok: response.ok, status: response.status, result });

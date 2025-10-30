@@ -6,6 +6,7 @@ import { validateUniversityCode, getUniversityInfo } from '../../utils/universit
 
 const Accounts = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,7 +60,7 @@ const Accounts = () => {
         ...(universityCode && { universityCode: universityCode })
       });
 
-      const response = await fetch(`http://localhost:5001/api/accounts/all?${params}`);
+      const response = await fetch(`${backendUrl}/api/accounts/all?${params}`);
       const result = await response.json();
       console.log('Payments API response:', result);
       
@@ -165,7 +166,7 @@ const Accounts = () => {
         
         console.log('Marking payment as paid:', requestBody);
         
-        const response = await fetch(`http://localhost:5001/api/accounts/mark-paid/${paymentId}`, {
+        const response = await fetch(`${backendUrl}/api/accounts/mark-paid/${paymentId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'

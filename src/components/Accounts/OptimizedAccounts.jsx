@@ -22,6 +22,7 @@ import Swal from 'sweetalert2';
 
 const OptimizedAccounts = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   
   // State management
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,7 +37,7 @@ const OptimizedAccounts = () => {
   const universityCode = localStorage.getItem('universityCode');
 
   // API base URL
-  const API_BASE_URL = 'http://localhost:5001/api/payments';
+  const API_BASE_URL = `${backendUrl}/api/payments`;
 
   // Memoized filtered payments
   const filteredPayments = useMemo(() => {

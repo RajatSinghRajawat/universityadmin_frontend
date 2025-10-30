@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 const AddExcelEmployess = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -49,7 +50,7 @@ const AddExcelEmployess = () => {
 
   const downloadTemplate = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/employees/download-template');
+      const response = await fetch(`${backendUrl}/api/employees/download-template`);
       
       if (!response.ok) {
         throw new Error('Failed to download template');
@@ -99,7 +100,7 @@ const AddExcelEmployess = () => {
       const formData = new FormData();
       formData.append('excel', selectedFile);
 
-      const response = await fetch('http://localhost:5001/api/employees/upload-excel', {
+      const response = await fetch(`${backendUrl}/api/employees/upload-excel`, {
         method: 'POST',
         body: formData
       });

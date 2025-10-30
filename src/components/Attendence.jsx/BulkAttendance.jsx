@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 const BulkAttendance = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [attendanceRecords, setAttendanceRecords] = useState([]);
   const [attendanceDate, setAttendanceDate] = useState(new Date().toISOString().split('T')[0]);
   const [students, setStudents] = useState([]);
@@ -17,7 +18,7 @@ const BulkAttendance = () => {
   const fetchStudents = async () => {
     try {
       setStudentsLoading(true);
-      const response = await fetch(`http://localhost:5001/api/students/all?universityCode=${universityCode}`);
+      const response = await fetch(`${backendUrl}/api/students/all?universityCode=${universityCode}`);
       const result = await response.json();
       
       if (result.success) {
@@ -110,7 +111,7 @@ const BulkAttendance = () => {
         attendance_date: attendanceDate
       };
 
-      const response = await fetch('http://localhost:5001/api/attendance/bulk-mark', {
+      const response = await fetch(`${backendUrl}/api/attendance/bulk-mark`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

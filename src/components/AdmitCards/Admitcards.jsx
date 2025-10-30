@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 const Admitcards = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [searchTerm, setSearchTerm] = useState('');
   const [examFilter, setExamFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +42,7 @@ const Admitcards = () => {
         params.append('exam_type', examFilter);
       }
 
-      const response = await fetch(`http://localhost:5001/api/admitcards/all?${params}`);
+      const response = await fetch(`${backendUrl}/api/admitcards/all?${params}`);
       const result = await response.json();
       
       if (result.success) {
@@ -75,7 +76,7 @@ const Admitcards = () => {
       });
 
       if (result.isConfirmed) {
-        const response = await fetch(`http://localhost:5001/api/admitcards/delete/${id}`, {
+        const response = await fetch(`${backendUrl}/api/admitcards/delete/${id}`, {
           method: 'DELETE'
         });
 

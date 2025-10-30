@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 const StundentAttendence = () => {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedClass, setSelectedClass] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,7 +23,7 @@ const StundentAttendence = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch(`http://localhost:5001/api/students/all?universityCode=${universityCode}`);
+      const response = await fetch(`${backendUrl}/api/students/all?universityCode=${universityCode}`);
       const result = await response.json();
       
       if (result.success) {
@@ -93,7 +94,7 @@ const StundentAttendence = () => {
         attendance_date: selectedDate
       };
 
-      const response = await fetch('http://localhost:5001/api/attendance/bulk-mark', {
+      const response = await fetch(`${backendUrl}/api/attendance/bulk-mark`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -324,7 +325,7 @@ const StundentAttendence = () => {
                         <div className="flex items-center gap-3">
                           {student.image ? (
                             <img 
-                              src={`http://localhost:5001/${student.image}`} 
+                              src={`${backendUrl}/${student.image}`} 
                               alt={student.name}
                               className="w-10 h-10 rounded-full object-cover"
                             />

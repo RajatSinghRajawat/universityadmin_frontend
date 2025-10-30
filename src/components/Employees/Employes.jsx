@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 const Employes = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [searchTerm, setSearchTerm] = useState('');
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ const Employes = () => {
 
       console.log('🔄 Fetching employees with universityCode:', universityCode);
       
-      const response = await fetch(`http://localhost:5001/api/employees/all-simple?${params}`);
+      const response = await fetch(`${backendUrl}/api/employees/all-simple?${params}`);
       const result = await response.json();
       
       if (result.success) {
@@ -48,7 +49,7 @@ const Employes = () => {
           limit: '1000'
         });
         
-        const paginatedResponse = await fetch(`http://localhost:5001/api/employees/all?${paginatedParams}`);
+        const paginatedResponse = await fetch(`${backendUrl}/api/employees/all?${paginatedParams}`);
         const paginatedResult = await paginatedResponse.json();
         
         if (paginatedResult.success) {
@@ -71,7 +72,7 @@ const Employes = () => {
   const fetchStats = async () => {
     try {
       const params = new URLSearchParams({ universityCode });
-      const response = await fetch(`http://localhost:5001/api/employees/statistics?${params}`);
+      const response = await fetch(`${backendUrl}/api/employees/statistics?${params}`);
       const result = await response.json();
       
       if (result.success) {
@@ -98,7 +99,7 @@ const Employes = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5001/api/employees/search?query=${searchTerm}&universityCode=${universityCode}`);
+      const response = await fetch(`${backendUrl}/api/employees/search?query=${searchTerm}&universityCode=${universityCode}`);
       const result = await response.json();
       
       if (result.success) {
@@ -134,7 +135,7 @@ const Employes = () => {
       });
 
       if (result.isConfirmed) {
-        const response = await fetch(`http://localhost:5001/api/employees/delete/${id}`, {
+        const response = await fetch(`${backendUrl}/api/employees/delete/${id}`, {
           method: 'DELETE'
         });
 
@@ -329,7 +330,7 @@ const Employes = () => {
               <div className="p-4 md:p-6 flex items-center space-x-4">
                 {employee.image ? (
                   <img 
-                    src={`http://localhost:5001/${employee.image}`} 
+                    src={`${backendUrl}/${employee.image}`} 
                     alt={employee.name}
                     className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-gray-200"
                     onError={(e) => {

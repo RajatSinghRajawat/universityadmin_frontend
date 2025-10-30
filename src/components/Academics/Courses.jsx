@@ -19,6 +19,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 
 const Courses = () => {
   const { isDarkMode } = useTheme();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -61,7 +62,7 @@ const Courses = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch('http://localhost:5001/api/courses/all?universityCode=GYAN001');
+        const res = await fetch(`${backendUrl}/api/courses/all?universityCode=GYAN001`);
         const json = await res.json();
         if (!res.ok || json.success === false) {
           throw new Error(json.message || 'Failed to fetch courses');
@@ -144,7 +145,7 @@ const Courses = () => {
           formdata.append(key, String(value ?? ''));
         }
       });
-      const res = await fetch('http://localhost:5001/api/courses/create', {
+      const res = await fetch(`${backendUrl}/api/courses/create`, {
         method: 'POST',
         body: formdata,
       });
@@ -181,7 +182,7 @@ const Courses = () => {
   const handleToggleStatus = async (courseId, currentStatus) => {
     try {
       const newStatus = !currentStatus;
-      const res = await fetch(`http://localhost:5001/api/courses/update/${courseId}`, {
+      const res = await fetch(`${backendUrl}/api/courses/update/${courseId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isActive: newStatus }),
@@ -200,7 +201,7 @@ const Courses = () => {
   const getAllCourses = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5001/api/courses/all?universityCode=GYAN001');
+      const res = await fetch(`${backendUrl}/api/courses/all?universityCode=GYAN001`);
       const json = await res.json();
       if (!res.ok || json.success === false) throw new Error(json.message || 'Failed to fetch');
       setCourses(Array.isArray(json.data) ? json.data : []);
@@ -213,7 +214,7 @@ const Courses = () => {
 
   const getCourseById = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5001/api/courses/get/${id}`);
+      const res = await fetch(`${backendUrl}/api/courses/get/${id}`);
       const json = await res.json();
       if (!res.ok || json.success === false) throw new Error(json.message || 'Failed to fetch course');
       return json.data;
