@@ -15,23 +15,29 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check for saved theme preference or default to light mode
     const saved = localStorage.getItem('theme');
-    if (saved) {
-      return JSON.parse(saved);
+
+    if (saved === null) {
+      // First visit → system preference
+      return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
-    // Check system preference
-    if (typeof window !== 'undefined') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Handle both "true"/"false" (JSON) and possible legacy "dark"/"light" strings
+    if (saved === 'dark' || saved === 'true') {
+      return true;
     }
-    return false;
+    if (saved === 'light' || saved === 'false') {
+      return false;
+    }
+
+    // Fallback (corrupted value)
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   useEffect(() => {
-    // Save theme preference
+    // Always save as boolean → consistent JSON
     localStorage.setItem('theme', JSON.stringify(isDarkMode));
-    
-    // Apply theme to document
+
     const root = document.documentElement;
     if (isDarkMode) {
       root.classList.add('dark');
@@ -40,35 +46,25 @@ export const ThemeProvider = ({ children }) => {
       root.classList.remove('dark');
       root.style.colorScheme = 'light';
     }
-    
-    // Update meta theme-color for mobile browsers
+
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
       metaThemeColor.setAttribute('content', isDarkMode ? '#111827' : '#ffffff');
     }
   }, [isDarkMode]);
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const toggleTheme = () => setIsDarkMode((prev) => !prev);
+  const setLightMode = () => setIsDarkMode(false);
+  const setDarkMode   = () => setIsDarkMode(true);
 
-  const setLightMode = () => {
-    setIsDarkMode(false);
-  };
-
-  const setDarkMode = () => {
-    setIsDarkMode(true);
-  };
-
-  // Enhanced theme colors
   const themeColors = {
     light: {
       primary: '#3b82f6',
       secondary: '#6366f1',
       background: '#ffffff',
       surface: '#f8fafc',
-      text: '#111827',        // Dark text for light background
-      textSecondary: '#374151', // Dark secondary text
+      text: '#111827',
+      textSecondary: '#374151',
       border: '#e5e7eb',
       success: '#10b981',
       warning: '#f59e0b',
@@ -79,8 +75,8 @@ export const ThemeProvider = ({ children }) => {
       secondary: '#6366f1',
       background: '#111827',
       surface: '#1f2937',
-      text: '#f9fafb',        // Light text for dark background
-      textSecondary: '#d1d5db', // Light secondary text
+      text: '#f9fafb',
+      textSecondary: '#d1d5db',
       border: '#4b5563',
       success: '#10b981',
       warning: '#f59e0b',
@@ -129,6 +125,7 @@ export const ThemeProvider = ({ children }) => {
         colorItemBgSelected: isDarkMode ? 'rgba(59, 130, 246, 0.15)' : 'rgba(59, 130, 246, 0.1)',
         colorItemTextSelected: currentTheme.primary,
       },
+      // ... other component overrides remain the same
       Button: {
         colorBgContainer: currentTheme.background,
         colorBorder: currentTheme.border,

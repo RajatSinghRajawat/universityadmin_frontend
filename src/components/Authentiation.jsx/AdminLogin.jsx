@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaEyeSlash, FaEye } from 'react-icons/fa';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
-  const { isDarkMode } = useContext(ThemeContext);
+const { isDarkMode } = useTheme();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
