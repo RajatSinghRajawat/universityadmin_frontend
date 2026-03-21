@@ -32,7 +32,7 @@ const Header = ({ onToggleSidebar, onToggleTheme, isDarkMode, sidebarOpen }) => 
           
           <div className="hidden sm:block">
             <h2 className={`text-lg lg:text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-              University Administration
+              Kishangarh College
             </h2>
             <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               Welcome back, Administrator

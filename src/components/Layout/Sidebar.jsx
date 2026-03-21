@@ -144,7 +144,7 @@ const Sidebar = ({ isOpen, onClose, isDarkMode }) => {
             </div>
             <div className="hidden lg:block">
               <h1 className={`font-bold text-lg ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                UniAdmin
+                Kishangarh College
               </h1>
               <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 University Management
