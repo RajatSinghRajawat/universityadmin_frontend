@@ -29,4 +29,4 @@ COPY --from=build /app/dist ./dist
 EXPOSE 3012
 
 # Use 'serve' to serve the build on port 3010
-CMD ["serve", "-s", "dist", "-l", "3012"]
+CMD ["serve", "-s", "dist", "-l", "3015"]

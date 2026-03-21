@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaEyeSlash, FaEye } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
+import { backendUrl } from '../../services/api';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
 const { isDarkMode } = useTheme();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',

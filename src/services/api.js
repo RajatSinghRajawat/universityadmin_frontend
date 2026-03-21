@@ -1,5 +1,16 @@
 // Centralized API configuration and base service
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+const sanitizeBaseUrl = (value) => {
+  if (!value) return '';
+  const normalized = String(value).trim();
+  if (!normalized || normalized === 'undefined' || normalized === 'null') return '';
+  return normalized.replace(/\/+$/, '');
+};
+
+const viteBackendUrl = sanitizeBaseUrl(import.meta.env.VITE_BACKEND_URL);
+const reactBackendUrl = sanitizeBaseUrl(import.meta.env.REACT_APP_API_URL);
+
+export const backendUrl =
+  viteBackendUrl || reactBackendUrl || 'https://kishangarhcollege.in';
 const API_BASE_URL = `${backendUrl}/api`;
 
 class ApiService {
