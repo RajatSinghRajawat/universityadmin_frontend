@@ -26,7 +26,7 @@ RUN npm install -g serve
 COPY --from=build /app/dist ./dist
 
 # Expose port 3010
-EXPOSE 3012
+EXPOSE 3001
 
-# Use 'serve' to serve the build on port 3010
-CMD ["serve", "-s", "dist", "-l", "3015"]
+# Use 'serve' to serve the build on port 3001
+CMD ["serve", "-s", "dist", "-l", "3001"]
