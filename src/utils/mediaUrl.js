@@ -16,6 +16,18 @@ export const getMediaUrl = (path) => {
     return trimmedPath;
   }
 
-  const normalizedPath = trimmedPath.replace(/\\/g, '/').replace(/^\/+/, '');
+  let normalizedPath = trimmedPath.replace(/\\/g, '/').replace(/^\/+/, '');
+  normalizedPath = normalizedPath.replace(/^public\//i, '');
+
+  if (normalizedPath.toLowerCase().startsWith('uploads/')) {
+    return `${backendUrl}/${normalizedPath}`;
+  }
+
+  // In many API responses image comes as only filename.
+  const hasDirectory = normalizedPath.includes('/');
+  if (!hasDirectory) {
+    return `${backendUrl}/uploads/${normalizedPath}`;
+  }
+
   return `${backendUrl}/${normalizedPath}`;
 };
