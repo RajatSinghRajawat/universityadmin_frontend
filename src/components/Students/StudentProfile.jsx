@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { FaUser, FaMapMarkerAlt, FaUsers, FaIdCard, FaArrowLeft, FaSpinner } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
+import { getMediaUrl } from '../../utils/mediaUrl';
 
 const StudentProfile = () => {
   const { id } = useParams();
@@ -95,7 +96,7 @@ const StudentProfile = () => {
         course_id: student.course_id?._id || '',
         image: null
       });
-      setImagePreview(student.image ? `${backendUrl}/${student.image}` : null);
+      setImagePreview(student.image ? getMediaUrl(student.image) : null);
       setShowEditModal(true);
     }
   };
@@ -302,7 +303,7 @@ const StudentProfile = () => {
             <div className="w-16 h-16 rounded-full border-2 border-white border-opacity-30 overflow-hidden">
               {student.image ? (
                 <img 
-                  src={`${backendUrl}/${student.image}`} 
+                  src={getMediaUrl(student.image)} 
                   alt={student.name}
                   className="w-full h-full object-cover"
                 />

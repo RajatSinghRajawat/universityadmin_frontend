@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaEye, FaEdit, FaTrash, FaUser, FaEllipsisV, FaUndo, FaArrowLeft } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { getMediaUrl } from '../../utils/mediaUrl';
 
 const ExStudent = () => {
   const navigate = useNavigate();
@@ -308,7 +309,7 @@ const ExStudent = () => {
                       {student.image ? (
                         <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-red-200">
                           <img 
-                            src={`${backendUrl}/${student.image}`} 
+                            src={getMediaUrl(student.image)} 
                             alt={student.name}
                             className="w-full h-full object-cover grayscale"
                           />

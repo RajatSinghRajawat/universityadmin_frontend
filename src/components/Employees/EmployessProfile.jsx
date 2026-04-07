@@ -1,11 +1,11 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaUser, FaMapMarkerAlt, FaBriefcase, FaIdCard, FaArrowLeft, FaEdit } from 'react-icons/fa';
+import { getMediaUrl } from '../../utils/mediaUrl';
 
 const EmployessProfile = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   
   // Get employee data from navigation state
   const employee = location.state?.employee;
@@ -104,7 +104,7 @@ const EmployessProfile = () => {
             <div className="flex items-center space-x-4">
               {employee?.image ? (
                 <img 
-                  src={`${backendUrl}/${employee.image}`} 
+                  src={getMediaUrl(employee.image)} 
                   alt={profileData.name}
                   className="w-16 h-16 rounded-full object-cover border-2 border-white border-opacity-30"
                 />

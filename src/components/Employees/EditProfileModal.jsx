@@ -3,12 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
 import { employeeService } from '../../services';
+import { getMediaUrl } from '../../utils/mediaUrl';
 
 const EditProfileModal = () => {
   const { isDarkMode } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const employee = location.state?.employee;
 
   const [formData, setFormData] = useState({
@@ -445,7 +445,7 @@ const EditProfileModal = () => {
                 <div className="mt-2">
                   <p className="text-sm text-gray-600 mb-2">Current image:</p>
                   <img 
-                    src={`${backendUrl}/${employee.image}`} 
+                    src={getMediaUrl(employee.image)} 
                     alt="Current profile" 
                     className="w-16 h-16 rounded-full object-cover"
                   />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaSearch, FaEye, FaEdit, FaTrash, FaUser, FaPlus, FaChartBar } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { getMediaUrl } from '../../utils/mediaUrl';
 
 const Employes = () => {
   const navigate = useNavigate();
@@ -330,7 +331,7 @@ const Employes = () => {
               <div className="p-4 md:p-6 flex items-center space-x-4">
                 {employee.image ? (
                   <img 
-                    src={`${backendUrl}/${employee.image}`} 
+                    src={getMediaUrl(employee.image)} 
                     alt={employee.name}
                     className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-gray-200"
                     onError={(e) => {

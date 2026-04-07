@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCalendarCheck, FaUser, FaCheckCircle, FaTimesCircle, FaClock, FaSearch, FaPlus, FaChartBar, FaHistory } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { getMediaUrl } from '../../utils/mediaUrl';
 
 const StundentAttendence = () => {
   const navigate = useNavigate();
@@ -325,7 +326,7 @@ const StundentAttendence = () => {
                         <div className="flex items-center gap-3">
                           {student.image ? (
                             <img 
-                              src={`${backendUrl}/${student.image}`} 
+                              src={getMediaUrl(student.image)} 
                               alt={student.name}
                               className="w-10 h-10 rounded-full object-cover"
                             />
