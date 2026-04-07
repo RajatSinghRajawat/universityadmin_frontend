@@ -120,6 +120,11 @@ const { isDarkMode } = useTheme();
           {/* Left Side - Welcome Section */}
           <div className="lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-700 p-12 flex flex-col justify-center text-white">
             <div className="text-center">
+              <img
+                src="/src/components/Authentiation.jsx/logo.jpeg"
+                alt="University logo"
+                className="w-28 h-28 rounded-full object-cover border-4 border-white/70 mx-auto mb-6 shadow-lg"
+              />
               <h1 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
                 Welcome to<br />
                 <span className="text-yellow-300">University</span>
